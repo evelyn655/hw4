@@ -29,9 +29,23 @@ void RPC_Parking(Arguments *in, Reply *out)   {
     char face = in->getArg<char>();
 
     if (face=='S') {
+        // go back d2 cm
+        encoder_ticker.attach(&encoder_control, 10ms);
+        steps = 0;
+        last = 0;
+        car.goStraight(-50);
 
+        printf("d1 = %f\n", d1);
+        printf("d2 = %f\n", d2);
+        printf("face = %c\n", face);
+
+        while(steps*6.5*3.14/32 < (d2-5+7)) {
+            printf("encoder = %d\r\n", steps);
+            ThisThread::sleep_for(100ms);
+        }
+        car.stop();
     } else {
-        // go back di cm
+        // go back d1 cm
         encoder_ticker.attach(&encoder_control, 10ms);
         steps = 0;
         last = 0;
@@ -55,8 +69,11 @@ void RPC_Parking(Arguments *in, Reply *out)   {
             ThisThread::sleep_for(2500ms);
             car.stop();
         } else if (face=='D') {
-
+            car.turn(50, -0.3);
+            ThisThread::sleep_for(2500ms);
+            car.stop();
         }
+        ThisThread::sleep_for(3000ms);
         
         // go back d2 cm
         encoder_ticker.attach(&encoder_control, 10ms);
