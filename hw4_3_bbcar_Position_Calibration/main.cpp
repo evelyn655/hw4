@@ -21,20 +21,14 @@ BBCar car(pin5, pin6, servo_ticker);
 // void steering();
 
 int main(){
-   uart.set_baud(9600);
-   while(1){
-       int output = -1;
-       printf("*********while loop!********\r\n");
-    printf("output = %d\r\n", output);
-    //printf("readable = %d\r\n",uart.readable());
-    //ThisThread::sleep_for(500ms);
+    uart.set_baud(9600);
+    while(1){
+        //int output = -1;
+        printf("*********while loop!********\r\n");
+        //printf("output = %d\r\n", output);
+        //printf("readable = %d\r\n",uart.readable());
+        //ThisThread::sleep_for(500ms);
         if(uart.readable()){
-            
-            
-            // -1: default,  
-            //  0: go straight, 
-            //  1: seen from the right(turn left), 
-            //  2: seen from the left(turn right) 
             char recv[1];
             uart.read(recv, sizeof(recv));  // &recv[0]
             //pc.write(recv, sizeof(recv));
@@ -43,35 +37,39 @@ int main(){
 
             if (recv[0] == 's') {
 
-                printf("straight\r\n");
-                // car.goStraight(50);
-                 ThisThread::sleep_for(1s);
-                // car.stop();
+                //printf("straight\r\n");
+                car.goStraight(25);
+                ThisThread::sleep_for(1s);
+                car.stop();
                 
                 
                 // ping detection to stop the car
                 // or at the end, break the while loop?
 
-            } else if (recv[0] == 'r') {   // turn left
-                printf("from right\r\n");
+            } else if (recv[0] == 'r') {   // turn right
+                //printf("from right\r\n");
 
-                // car.turn(50, 0.5);
-                 ThisThread::sleep_for(1s);
-                // car.stop();
+                car.turn(25, -0.9);
+                ThisThread::sleep_for(1s);
+                car.stop();
 
-            } else if (recv[0] == 'l') {   // turn right
-                printf("from left\r\n");
-                // car.turn(50, -0.5);
-                 ThisThread::sleep_for(1s);
-                // car.stop();
-            } else {
+            } else if (recv[0] == 'l') {   // turn left
+                //printf("from left\r\n");
+                car.turn(25, 0.9);
+                ThisThread::sleep_for(1s);
+                car.stop();
+            } //else {
+            //     ThisThread::sleep_for(1s);
                 //car.stop();
                 // ThisThread::sleep_for(3000ms);
-            }
+            //}
             ThisThread::sleep_for(1s);
       }
    }
 }
+
+
+
 // string readLine(){
 //       string s =  "";
 //       char c;
