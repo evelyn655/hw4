@@ -38,7 +38,7 @@ int main(){
             if (recv[0] == 's') {
 
                 //printf("straight\r\n");
-                car.goStraight(25);
+                car.goStraight(40);
                 ThisThread::sleep_for(1s);
                 car.stop();
                 
@@ -48,21 +48,22 @@ int main(){
 
             } else if (recv[0] == 'r') {   // turn right
                 //printf("from right\r\n");
-
-                car.turn(25, -0.9);
+                // car.goStraight(50);
+                // ThisThread::sleep_for(500ms);
+                // car.stop();
+                car.turn(40, -0.75);
                 ThisThread::sleep_for(1s);
                 car.stop();
 
             } else if (recv[0] == 'l') {   // turn left
-                //printf("from left\r\n");
-                car.turn(25, 0.9);
+                //printf("from left\r\n");SS
+                // car.goStraight(50);
+                // ThisThread::sleep_for(500ms);
+                car.stop();
+                car.turn(40, 0.8);
                 ThisThread::sleep_for(1s);
                 car.stop();
-            } //else {
-            //     ThisThread::sleep_for(1s);
-                //car.stop();
-                // ThisThread::sleep_for(3000ms);
-            //}
+            } 
             ThisThread::sleep_for(1s);
       }
    }
@@ -70,29 +71,7 @@ int main(){
 
 
 
-// string readLine(){
-//       string s =  "";
-//       char c;
-//       while((c = uart.read()) !='\n'){
-//           s += c;
-//       }  
-//       return s;
-// }
 
-// int main(){
-//     uart.set_baud(9600);
-
-//     thread.start(callback(&queue, &EventQueue::dispatch_forever));                          // for output on uLCD
-
-
-//     while(1){
-//         if(uart.readable()){
-//                 char recv[1];
-//                 uart.read(recv, sizeof(recv));
-//                 //pc.write(recv, sizeof(recv));
-//       }
-//    }
-// }
 
 
 // void steering() {
